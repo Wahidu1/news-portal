@@ -4,6 +4,7 @@ from django.core.validators import EmailValidator, RegexValidator
 from django.contrib.auth.hashers import make_password
 from django.urls import reverse
 from content.models import BaseModel
+
 class Author(BaseModel):
     name = models.CharField(max_length=255)
     email = models.EmailField(unique=True, validators=[EmailValidator()])

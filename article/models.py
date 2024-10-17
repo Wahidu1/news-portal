@@ -5,7 +5,8 @@ from django.urls import reverse
 
 class Category(BaseModel):
     name = models.CharField(max_length=50)
-    slug = models.SlugField(max_length=50, unique=True, blank=True)  # Optional slug field
+    slug = models.SlugField(max_length=50, unique=True, blank=True)
+    
 
     def __str__(self):
         return self.name
@@ -15,10 +16,15 @@ class Category(BaseModel):
         managed = True
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
+        
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)  # Automatically generate slug from title
+        super().save(*args, **kwargs)
+
 
 class Tag(models.Model):
-    name = models.CharField(max_length=50, unique=True)  # Ensure tag names are unique
-
+    name = models.CharField(max_length=50, unique=True)
     def __str__(self):
         return self.name
 
