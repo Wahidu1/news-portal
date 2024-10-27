@@ -25,7 +25,7 @@
           <form method="post" enctype="multipart/form-data">
 
             {% csrf_token %}
-            <input type="hidden"  name="page_id" value="{{page_id}}">
+            <input type="hidden"  name="shortcut_id" value="{{shortcut_id}}">
             <div class="row">
                 <div class="col-md-6">
                     <label for="id_title">Name:</label>
@@ -71,26 +71,29 @@
           <thead>
             <tr class="btn-reveal-trigger">
               <th scope="col">SL.</th>
+              <th scope="col">Name</th>
               <th scope="col">Image</th>
               <th scope="col">Title</th>
               <th class="text-end" scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {% for page in pages %}
+            {% for shortcut in shortcuts %}
             <tr class="btn-reveal-trigger">
               <td>{{ forloop.counter }}</td>
+              <td>{{shortcut.name}}</td>
+
               <td>
-                {% if page.image %}
-                <img src="{{page.image.url}}" alt="" width=90 >
+                {% if shortcut.image %}
+                <img src="{{shortcut.image.url}}" alt="" width=90 >
                 {% endif %}
               </td>
-              <td>{{page.name}}</td>
+              <td>{{shortcut.title}}</td>
 
               <td class="text-end">
                 <form method="get" action="">
                 {% comment %} <a class="dropdown-item text-danger" href="#">Edit</a> {% endcomment %}
-                <input type="hidden" name=page_id value="{{page.id}}">
+                <input type="hidden" name=shortcut_id value="{{shortcut.id}}">
                 <button type="submit" class="dropdown-item text-danger">Edit</button>
               </form>
               </td>

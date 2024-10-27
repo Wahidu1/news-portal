@@ -38,6 +38,10 @@ class ShortcutForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'value': forms.TextInput(attrs={'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control'}),
+            'description': forms.TextInput(attrs={'class': 'form-control'}),
             'image': forms.ClearableFileInput(attrs={'class': 'form-control'})
         }
+    def __init__(self, *args, **kwargs):
+        super(ShortcutForm, self).__init__(*args, **kwargs)
+        self.fields['description'].required = False
+        self.fields['image'].required = False

@@ -193,7 +193,7 @@ class ShortcutViews(View):
         if form.is_valid():
             form.save()
             messages.success(request, success_message)
-            return redirect('content:pages')
+            return redirect('content:shortcut')
         else:
             messages.error(request, 'Form submission failed. Please correct the errors below.')
             shortcuts = self.model_name.objects.all()  # Pass pages again for re-rendering
