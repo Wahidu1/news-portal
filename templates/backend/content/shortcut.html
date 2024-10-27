@@ -1,0 +1,157 @@
+{% extends "backend/base.html" %}
+{% load static %}
+
+{% block content %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}} border-0 d-flex align-items-center" role="alert">
+    <div class="bg-{{message.tags}} me-3 icon-item"><span class="fas fa-check-circle text-white fs-6"></span></div>
+    <p class="mb-0 flex-1">{{message}}</p><button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+<div class="card mb-3">
+    <div class="card-header">
+      <div class="row flex-between-end">
+        <div class="col-auto align-self-center">
+            <div class="d-flex justify-content-between">
+                <h5 class="mb-0" data-anchor="data-anchor" id="example">Common Page</h5>
+            </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="card-body bg-body-tertiary">
+      <div class="tab-content">
+        <div class="tab-pane preview-tab-pane active">
+          <form method="post" enctype="multipart/form-data">
+
+            {% csrf_token %}
+            <input type="hidden"  name="page_id" value="{{page_id}}">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="id_title">Name:</label>
+                    {{form.name}}
+                </div>
+                <div class="col-md-6">
+                  <label for="id_album">Title:</label>
+                  {{form.title}}
+              </div>
+              <div class="col-md-6">
+                <label for="id_title">Value:</label>
+                {{form.value}}
+            </div>
+            <div class="col-md-6">
+              <label for="id_album">Image:</label>
+              {{form.image}}
+          </div>
+                <div class="col-md-12">
+                    <label for="id_images">Description:</label>
+                    {{form.description}}
+                </div>                
+
+                <div class="col-md-12 mt-5 text-center">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card mb-3">
+    <div class="card-header">
+      <div class="row flex-between-end">
+        <div class="col-auto align-self-center">
+          <h5 class="mb-0" data-anchor="data-anchor" id="example">Photo Gallery List</h5>
+        </div>
+        
+      </div>
+    </div>
+    <div class="table-responsive scrollbar">
+        <table class="table table-striped overflow-hidden">
+          <thead>
+            <tr class="btn-reveal-trigger">
+              <th scope="col">SL.</th>
+              <th scope="col">Image</th>
+              <th scope="col">Title</th>
+              <th class="text-end" scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for page in pages %}
+            <tr class="btn-reveal-trigger">
+              <td>{{ forloop.counter }}</td>
+              <td>
+                {% if page.image %}
+                <img src="{{page.image.url}}" alt="" width=90 >
+                {% endif %}
+              </td>
+              <td>{{page.name}}</td>
+
+              <td class="text-end">
+                <form method="get" action="">
+                {% comment %} <a class="dropdown-item text-danger" href="#">Edit</a> {% endcomment %}
+                <input type="hidden" name=page_id value="{{page.id}}">
+                <button type="submit" class="dropdown-item text-danger">Edit</button>
+              </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+  </div>
+{% endblock content %}
+
+{% block modal %}
+<div class="modal fade" id="album-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+    <div class="modal-content position-relative">
+      <div class="position-absolute top-0 end-0 mt-2 me-2 z-1">
+        <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="rounded-top-3 py-3 ps-4 pe-6 bg-body-tertiary">
+          <h4 class="mb-1" id="modalExampleDemoLabel">Add Album </h4>
+        </div>
+        <div class="p-4 pb-0">
+          <form method="post" >
+            {% csrf_token %}
+            <input type="hidden" name="album_id" id="album_id" value="1">
+                        
+            <div class="mb-3">
+                <label for="name" class="form-label">Album</label>
+                <input class="form-control" type="text" id= "album_title" name="album_title" >
+              </div>
+            <div class="mb-3">
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock modal %}
+
+{% block script %}
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var editButtons = document.querySelectorAll('[data-bs-target="#cat-modal"]');
+    
+    editButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+          const categoryId = $(this).data('category-id');
+          const categoryName = $(this).data('category-name');
+          alert(categoryName)
+
+
+          document.querySelector('.modal-body #category_id').value = categoryId; // Hidden field for ID
+          document.querySelector('.modal-body input[id="name"]').value = categoryName;
+      
+        });
+    });
+});
+
+</script>
+{% endblock script %}
+

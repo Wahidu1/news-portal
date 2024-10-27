@@ -8,6 +8,8 @@ urlpatterns = [
     path("article/", include("article.urls")),
     path("author/", include("author.urls")),
     path("content/", include("content.urls")),
+    path("",  include("frontend.urls")),
+
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

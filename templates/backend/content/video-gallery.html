@@ -1,0 +1,87 @@
+{% extends "backend/base.html" %}
+{% load static %}
+
+{% block content %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}} border-0 d-flex align-items-center" role="alert">
+    <div class="bg-{{message.tags}} me-3 icon-item"><span class="fas fa-check-circle text-white fs-6"></span></div>
+    <p class="mb-0 flex-1">{{message}}</p><button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+<div class="card mb-3">
+    <div class="card-header">
+      <div class="row flex-between-end">
+        <div class="col-auto align-self-center">
+            <div class="d-flex justify-content-between">
+                <h5 class="mb-0" data-anchor="data-anchor" id="example">Photo Gallery</h5>
+                <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#album-modal">Add Album</button>
+            </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="card-body bg-body-tertiary">
+      <div class="tab-content">
+        <div class="tab-pane preview-tab-pane active">
+          <form method="post" enctype="multipart/form-data">
+
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="id_title">Title:</label>
+                    {{form.title}}
+                </div>
+                <div class="col-md-6">
+                    <label for="id_url">Url:</label>
+                    {{form.video_url}}
+                </div>                
+ 
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card mb-3">
+    <div class="card-header">
+      <div class="row flex-between-end">
+        <div class="col-auto align-self-center">
+          <h5 class="mb-0" data-anchor="data-anchor" id="example">Video Gallery List</h5>
+        </div>
+        
+      </div>
+    </div>
+    <div class="table-responsive scrollbar">
+        <table class="table table-striped overflow-hidden">
+          <thead>
+            <tr class="btn-reveal-trigger">
+              <th scope="col">SL.</th>
+              <th scope="col">Title</th>
+              <th scope="col">Album</th>
+
+              <th class="text-end" scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for video in videos %}
+            <tr class="btn-reveal-trigger">
+              <td>{{ forloop.counter }}</td>
+              <td>{{video.title}}</td>
+              <td>{{video.video_url}}</td>
+
+              <td class="text-end">
+                <a class="dropdown-item text-danger" href="{% url "content:video_gallery_delete" video.id %}">Delete</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+  </div>
+{% endblock content %}
+
+
+

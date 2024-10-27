@@ -2,6 +2,14 @@ from django.db import models
 from content.models import BaseModel
 from django.utils.text import slugify
 from django.urls import reverse
+from unidecode import unidecode
+
+def create_bengali_slug(bangla_text):
+    # Transliterate Bengali to ASCII using unidecode
+    transliterated_text = unidecode(bangla_text)
+    # Use Django's slugify to create a slug from transliterated text
+    slug = slugify(transliterated_text)
+    return slug
 
 class Category(BaseModel):
     name = models.CharField(max_length=50)
@@ -19,7 +27,8 @@ class Category(BaseModel):
         
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)  # Automatically generate slug from title
+            name = create_bengali_slug(self.name)
+            self.slug = slugify(name)  # Automatically generate slug from title
         super().save(*args, **kwargs)
 
 
@@ -33,8 +42,6 @@ class Tag(models.Model):
         managed = True
         verbose_name = 'Tag'
         verbose_name_plural = 'Tags'
-
-
 
 class Article(BaseModel):
     title = models.CharField(max_length=100)
@@ -65,7 +72,8 @@ class Article(BaseModel):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)  # Automatically generate slug from title
+            title =  create_bengali_slug(self.title)
+            self.slug = slugify(title)  # Automatically generate slug from title
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
@@ -87,9 +95,9 @@ class BreakingNews(BaseModel):
 
 class Comment(BaseModel):
     article = models.ForeignKey('Article', on_delete=models.CASCADE, related_name='comments')
-    reader = models.ForeignKey('author.Author', on_delete=models.CASCADE, related_name='comments')
+    name =  models.CharField(max_length=100,  blank=True, null=True)
+    email = models.EmailField(max_length=100,  blank=True, null=True)
     content = models.TextField()
-    date_published = models.DateTimeField(auto_now_add=True)
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')
 
     def __str__(self):
@@ -125,10 +133,11 @@ class VideoNews(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     video_url = models.URLField()  # Link to the video
-    date_published = models.DateTimeField(auto_now_add=True)
+    date_published = models.DateTimeField()
     categories = models.ManyToManyField('Category', related_name='video_news')
     thumbnail = models.ImageField(upload_to='video_thumbnails/', blank=True, null=True)  # Optional thumbnail field
     author = models.ForeignKey('author.Author', on_delete=models.CASCADE, related_name='videos_news')
+    status = models.CharField(max_length=10, choices=[('draft', 'Draft'), ('published', 'Published')], default='draft')
 
     def __str__(self):
         return self.title
@@ -139,13 +148,13 @@ class VideoNews(models.Model):
         verbose_name = 'Video News'
         verbose_name_plural = 'Video News'
 
-
 class Epaper(BaseModel):
     title = models.CharField(max_length=255)
-    description = models.TextField()
     pdf_file = models.FileField(upload_to='epaper_pdf')
-    date_published = models.DateTimeField(auto_now_add=True)
-    categories = models.ManyToManyField('Category', related_name='epaper')
+    date_published = models.DateField(blank=True,  null=True)
+    page_number  = models.IntegerField(blank=True,  null=True)
+    status = models.CharField(max_length=10, choices=[('draft', 'Draft'), ('published', 'Published')], default='draft')
+
 
     def __str__(self):
         return self.title

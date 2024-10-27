@@ -1,0 +1,270 @@
+{% extends "frontend/base.html" %}
+{% load static %}
+{% load number_filters %}
+{% block mainblock %}
+  <!--========== BEGIN #MAIN-SECTION ==========-->
+  <div id="main-section"> 
+    <!--========== BEGIN .CONTAINER ==========-->
+    <div class="container"> </div>
+    <!--========== END .CONTAINER ==========--> 
+    <!--========== BEGIN .MODULE ==========-->
+    <section class="module">
+      <div class="container"> 
+        <!--========== BEGIN .BREAKING-NEWS ==========--> 
+        <!-- Begin .outer -->
+        <div class="outer">
+          <div class="breaking-ribbon">
+            <h4>ব্রেকিং নিউজ</h4>
+          </div>
+          <!-- Begin .newsticker -->
+          <div class="newsticker">
+            <ul>
+                {% for breaking_news in breaking_news_list %}
+              <li>
+                <h4><span class="category">{{breaking_news.title}}:</span><a href="#"> {{breaking_news.description}}</a></h4>
+              </li>
+              {% endfor %}
+            </ul>
+            <div class="navi">
+              <button class="up"><i class="fa fa-caret-left"></i></button>
+              <button class="down"><i class="fa fa-caret-right"></i></button>
+            </div>
+          </div>
+          <!-- End .newsticker --> 
+        </div>
+        <!-- End .outer -->
+        <!--========== END .BREAKING-NEWS ==========--> 
+        <!--========== BEGIN .ROW ==========-->
+        <div class="row no-gutter"> 
+          <!--========== BEGIN .COL-MD-8 ==========-->
+          <div class="col-md-8"> 
+            <!--========== BEGIN .POST ==========-->
+            <div class="post post-full clearfix">
+              <div class="entry-media">
+                {% if article.image %}
+                <img src="{{article.image.url}}" alt=""> 
+                {% else %}
+                <img class="img-responsive" src="{% static "frontend/img/alt.jpg" %}" alt=""> 
+                {% endif %}
+              </div>
+              <div class="entry-main">
+                <div class="entry-title">
+                  <h4 class="entry-title"><a href="#">{{article.title}}</a></h4>
+                </div>
+               
+                <div class="post-meta-elements">
+                  <div class="post-meta-author"> <i class="fa fa-user"></i><a href="#">By Hugh Jackson</a> </div>
+                 <div class="post-meta-date"> <i class="fa fa-calendar"></i>{{article.date_published}} </div>
+                  <div class="post-meta-comments"> <i class="fa fa-comment-o"></i><a href="#">23 Comments</a> </div>
+                </div>
+                <div class="entry-content">
+                  {{article.content}}
+                </div>
+                <div class="post-tags"><span class="post-tags_title">ট্যাগ :</span>
+                  {% for tag in article.tags.all %}
+                  <a href="{% url "frontend:news_list_tags" id=tag.id tag=tag %}" class="post-tags_link"> {{tag}}</a>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <!--  End .post --> 
+            <!--  Begin .comment-section -->
+            <div class="comment-section"> 
+              <!-- Begin .title-style01 -->
+              <div class="comment-title title-style01">
+                <h4>{{comments|length|convert_to_bangla}} মন্তব্য</h4>
+              </div>
+              <!-- End .title-style01 -->
+              <ul class="comments-list">
+                {% for comment in comments %}
+                <li>
+                  <div class="comment clearfix">
+                    <div class="avatar"><img src="{% static "frontend/img/man.png" %}" alt="avatar" class="img-responsive"></div>
+                    <div class="comment-content">
+                      <div class="comment-title">
+                        <h5 class="comment-author">{{comment.name}}</h5>
+                        <div class="comment-date"><i class="fa fa-calendar"></i><span class="day"> {{comment.created_at}}</span></div>
+                      </div>
+                      <p> {{comment.content}}</p>
+                      {% comment %} <button type="button" class="comment-btn btn btn-default">reply</button> {% endcomment %}
+                      {% comment %} <button type="button" class="comment-btn btn btn-primary">edit</button> {% endcomment %}
+                    </div>
+                  </div>
+                </li>
+                {% endfor %}
+
+              </ul>
+            </div>
+            <!--  End .comment-section --> 
+            <!--  Begin .form-reply-section -->
+            
+            <div class="form-reply-section">
+              <div class="comment-title title-style01">
+                <h4>একটি মন্তব্য করুন</h4>
+              </div>
+              <form class="form-reply ui-form" action="#" method="post">
+                {% csrf_token %}
+                <div class="row no-gutter">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      {{form.name}}
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    {{form.email}}
+                  </div>
+                </div>
+                <div class="row no-gutter">
+                  <div class="col-md-12">
+                    {{form.content}}
+                  </div>
+                </div>
+                <div class="row no-gutter">
+                  <div class="col-md-12">
+                    <button class="btn btn-primary btn-black">সাবমিট</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            
+            <!--  End .form-reply-section --> 
+          </div>
+          <!--========== END .COL-MD-8 ==========--> 
+          <!--========== BEGIN .COL-MD-4==========-->
+          <div class="col-md-4"> 
+            <!--========== BEGIN #SIDEBAR-NEWSFEED ==========--> 
+            <!-- Begin .block-title-2 -->
+            <div class="block-title-2">
+              <h3>সাম্প্রতিক পোস্ট</h3>
+            </div>
+            <!-- End .block-title-2 -->
+            <div class="sidebar-newsfeed"> 
+              <!-- Begin .newsfeed -->
+              <div class="newsfeed-1">
+                <ul>
+                  {% for latest_news in latest_news_list %}
+                  <li>
+                    <div class="item">
+                      <div class="item-image"><a class="img-link" href="{% url "frontend:news_details" latest_news.slug %}">
+                        {% if latest_news.image %}
+                        <img class="img-responsive img-full" src="{{latest_news.image.url}}" alt="">
+                        {% endif %}
+                      </a></div>
+                      <div class="item-content">
+                        <h4 class="ellipsis"><a href="{% url "frontend:news_details" latest_news.slug %}">{{latest_news.title}}</a></h4>
+                        <p class="ellipsis"><a href="{% url "frontend:news_details" latest_news.slug %}">{{latest_news.title|truncatechars:120}}</a></p>
+                      </div>
+                    </div>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+              <!-- End .newsfeed --> 
+            </div>
+            <!--========== END #SIDEBAR-NEWSFEED ==========-->
+
+            <!--========== BEGIN .CALENDAR==========-->
+            <div id='calendar'></div>
+            <!--========== END .CALENDAR ==========--> 
+            <!--========== BEGIN #SIDEBAR-NEWSLETTER ==========-->
+            <div id="sidebar-newsletter"> 
+              <!-- Begin .title-style01 -->
+              <div class="title-style01">
+                <h3><strong>Newsletter</strong></h3>
+              </div>
+              <!-- End .title-style01 --> 
+              <!-- Begin .sidebar-newsletter-form -->
+              <div class="sidebar-newsletter-form">
+                <form class="form-horizontal" action="" id="subscribeForm" method="POST">
+                  {% csrf_token %}
+                  <div class="input-group">
+                    <input title="Newsletter" class="form-control" name="email" type="email" id="address" placeholder="Enter Your Email Address" data-validate="validate(required, email)" required>
+                    <span class="input-group-btn">
+                    <button type="submit" class="btn btn-success">Subscribe</button>
+                    </span> </div>
+                </form>
+                <span id="result" class="alertMsg"></span> </div>
+              <!-- End .sidebar-newsletter-form --> 
+            </div>
+            <!--========== END #SIDEBAR-NEWSLETTER ==========--> 
+            <!--========== BEGIN #SIDEBAR-SOCIAL-BUTTONS ==========-->
+            <div id="sidebar-social-icons">
+              <ul class="sidebar-social-icons">
+                <li> <a href="#" class="facebook"><i class="fa fa-facebook"></i></a> </li>
+                <li> <a href="#" class="youtube"><i class="fa fa-youtube"></i></a> </li>
+                <li> <a href="#" class="twitter"><i class="fa fa-twitter"></i></a> </li>
+                <li> <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a> </li>
+                <li> <a href="#" class="pinterest"><i class="fa fa-pinterest"></i></a> </li>
+                <li> <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a> </li>
+                <li> <a href="#" class="rss"><i class="fa fa-rss"></i></a> </li>
+                <li> <a href="#" class="tumblr"><i class="fa fa-tumblr"></i></a> </li>
+              </ul>
+            </div>
+            <!--========== END #SIDEBAR-SOCIAL-BUTTONS ==========--> 
+          </div>
+          <!--========== END .COL-MD-4 ==========--> 
+        </div>
+         <!-- Begin .add-place -->
+      <div class="add-place"> <a href="#" target="_blank"><img src="img/banner_1248x100.jpg" alt=""></a> </div>
+      <!-- End .add-place -->
+      <h2 class="title-style05 style-02">more headlines in our <span><a href="#">related posts</a></span></h2>
+      <!-- Begin .title-style05-bg -->
+      <!-- End .title-style05-bg --> 
+    </div>
+    <!--========== END .CONTAINER ==========-->
+    </section>
+    <!--========== END .MODULE ==========--> 
+   <!--========== BEGIN .MODULE ==========-->
+    <section class="module highlight">
+      <div class="container">
+        <div class="row no-gutter"> 
+          <!--========== BEGIN .COL-MD-12 ==========-->
+          <div class="col-md-12">
+
+            <!--========== BEGIN .ARTICLE ==========-->
+            <div class="article">
+              <div class="entry-block">
+                <div class="entry-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/watch_800x400-image01.jpg" alt=""></a></div>
+                <div class="entry-content">
+                  <div class="title-left title-style04 underline04">
+                    <h3><a href="#"><strong>Tara C. and Mark S.</strong></a></h3>
+                    <i class="fa fa-clock-o"></i> 24 Nov 2016 <span class="hour">11.25 PM</span></div>
+                  <p><a href="#" target="_blank" class="external-link"><strong>Inspire a life-long love</strong> of theatre by taking your children  shows... for kids.</a></p>
+                  <p><a href="#" target="_blank" class="external-link"><strong>Based on the acclaimed novel,</strong> tells the untold story of the Witches of Oz and how one came to be called "good" and the other...</a></p>
+                  <div> <a href="#"><span class="read-more">Continue reading</span></a> </div>
+                </div>
+              </div>
+              <div class="entry-block">
+                <div class="entry-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/24-tv-radio_800x400-image01.jpg" alt=""></a></div>
+                <div class="entry-content">
+                  <div class="title-left title-style04 underline04">
+                    <h3><a href="#"><strong>Other shows</strong></a></h3>
+                    <i class="fa fa-clock-o"></i> 20 Nov 2016 <span class="hour">14.15 PM</span></div>
+                  <p><a href="#" target="_blank" class="external-link"><strong> The economy's gradual</strong> but continued improvement is good news for pretty much everybody. Unless you work for a media organization.</a></p>
+                  <p><a href="#" target="_blank" class="external-link"><strong>Despite the improving jobs numbers,</strong> in fact, echo talking points by the national debt...</a></p>
+                  <div> <a href="24-news-store.html" target="_blank"><span class="read-more">24-News-Store</span></a> </div>
+                </div>
+              </div>
+              <div class="entry-block">
+                <div class="entry-image"><a class="img-link" href="#"><img class="img-responsive img-full" src="img/24-tv-radio_800x400-image02.jpg" alt=""></a></div>
+                <div class="entry-content">
+                  <div class="title-left title-style04 underline04">
+                    <h3><a href="#"><strong>Ones to Watch.</strong></a></h3>
+                    <i class="fa fa-clock-o"></i> 24 Nov 2016 <span class="hour">12.06 PM</span></div>
+                  <p><a href="#" target="_blank" class="external-link"><strong> 24h News</strong> Ones to Watch shines a spotlight on the up-and-coming creative talents set to be the next big names...</a> </p>
+                  <p><a href="#" target="_blank" class="external-link"><strong>Parts of 24h News</strong> coverage beyond the daily news are produced as Special Reports, which attract sponsors...</a></p>
+                  <div> <a href="watch-live.html" target="_blank"><span class="read-more">Watch Live 24/7</span></a> </div>
+                </div>
+              </div>
+            </div>
+            <!--========== END .ARTICLE ==========--> 
+          </div>
+          <!--========== END .COL-MD-12 ==========--> 
+        </div>
+      </div>
+    </section>
+    <!--========== END .MODULE ==========--> 
+
+  </div>
+  <!--========== END #MAIN-SECTION ==========--> 
+{% endblock mainblock %}

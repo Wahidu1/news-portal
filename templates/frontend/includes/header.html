@@ -1,0 +1,143 @@
+{% load static %}
+<header id="header"> 
+    <!-- Begin .top-menu -->
+    <div class="top-menu"> 
+      <!-- Begin .container -->
+      <div class="container"> 
+        <!-- Begin .left-top-menu -->
+        <ul class="left-top-menu">
+          <li> <a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+          <li> <a href="#" class="twitter"><i class="fa fa-twitter"></i></a> </li>
+          <li> <a href="#" class="youtube"> <i class="fa fa-youtube"></i></a> </li>
+          <li> <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a> </li>
+          <li> <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a> </li>
+          <li> <a href="#" class="instagram"> <i class="fa fa-instagram"></i></a> </li>
+          <li class="address"><a href="#"><i class="fa fa-phone"></i> +00 (123) 456 7890</a></li>
+          <li class="address"><a href="#"><i class="fa fa-envelope-o"></i> info@domain.com</a></li>
+        </ul>
+        <!-- End .left-top-menu --> 
+        <!-- Begin .right-top-menu -->
+        <ul class="right-top-menu pull-right">
+          <li class="contact"><a href="contact.html"><i class="fa fa-map-marker fa-i"></i></a></li>
+          <li class="about"><a href="about-us.html"><i class="fa fa-user fa-i"></i></a> </li>
+          <li>
+            <div class="search-container">
+              <div class="search-icon-btn"> <span style="cursor:pointer"><i class="fa fa-search"></i></span> </div>
+              <div class="search-input">
+                <input type="search" class="search-bar" placeholder="Search..." title="Search"/>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <!-- End .right-top-menu --> 
+      </div>
+      <!-- End .container --> 
+    </div>
+    <!-- End .top-menu --> 
+    <!-- Begin .container -->
+    <div class="container"> 
+      <!-- Begin .header-logo -->
+      <div class="header-logo"><a href="{% url "frontend:index" %}"><img src="{% static 'frontend/img/logo.png' %}" alt="Site Logo" />
+        <h1>জনপদ <span>সংবাদ</span></h1>
+        <h4>সত্যের সন্ধানে, প্রতিদিন</h4>
+        </a></div>
+      <!-- End .header-logo --> 
+      <!-- Begin .header-add-place -->
+      <div class="header-add-place">
+
+        <div class="desktop-add"><a href="https://themeforest.net/item/24h-news-broadcast-news-tv-channel-news-magazine-template/18614179" target="_blank"><img src="{% static 'frontend/img/banner_728x90.jpg' %}" alt=""></a></div>
+      </div>
+      <!-- End .header-add-place --> 
+      <!--========== BEGIN .NAVBAR #MOBILE-NAV ==========-->
+      <nav class="navbar navbar-default" id="mobile-nav">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" id="sidenav-toggle"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+          <div class="sidenav-header-logo"><a href="index-2.html"><img src="{% static 'frontend/img/logo.png' %}" alt="Site Logo" />
+            <h2>জনপদ <span>সংবাদ</span></h2>
+            <h5>সত্যের সন্ধানে, প্রতিদিন</h5>
+            </a></div>
+
+        </div>
+        <div class="sidenav" data-sidenav data-sidenav-toggle="#sidenav-toggle">
+          <button type="button" class="navbar-toggle active" data-toggle="collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+          <div class="sidenav-brand">
+            <div class="sidenav-header-logo"><a href="index-2.html"><img src="{% static 'frontend/img/logo.png' %}" alt="Site Logo" />
+              <h2>জনপদ  <span>সংবাদ</span></h2>
+              <h5>সত্যের সন্ধানে, প্রতিদিন</h5>
+              </a></div>
+
+          </div>
+          <ul class="sidenav-menu">
+            <li><a href="index-2.html" class="active">সর্বশেষ</a>
+            </li>
+            <li><a href="{% url "frontend:world_news" %}">বিশ্ব</a>
+            </li>
+            <li><a href="{% url "frontend:politics_news" %}">রাজনীতি</a>
+            </li>
+            <li><a href="{% url "frontend:sports_news" %}">খেলা</a>
+            </li>
+            <li><a href="{% url "frontend:bangladesh_news" %}">বাংলাদেশ</a>
+            </li>
+            <li><a href="{% url "frontend:crime_news" %}">অপরাধ</a>
+            </li>
+            <li><a href="{% url "frontend:entertainment_news" %}">বিনোদন</a>
+            </li>
+            <li><a href="{% url "frontend:business_news" %}">বাণিজ্য</a></li>
+            <li><a href="{% url "frontend:opinion_news" %}">মতামত</a></li>
+            <li><a href="{% url "frontend:job_news" %}">চাকরি</a></li>
+            <li><a href="{% url "frontend:lifestyle_news" %}">জীবনযাপন</a></li>
+
+          </ul>
+        </div>
+      </nav>
+      <!--========== END .NAVBAR #MOBILE-NAV ==========--> 
+    </div>
+    <!-- End .container --> 
+    <!--========== BEGIN .NAVBAR #FIXED-NAVBAR ==========-->
+    <div class="navbar" id="fixed-navbar"> 
+      <!--========== BEGIN MAIN-MENU .NAVBAR-COLLAPSE COLLAPSE #FIXED-NAVBAR-TOOGLE ==========-->
+      <div class="main-menu nav navbar-collapse collapse" id="fixed-navbar-toggle"> 
+        <!--========== BEGIN .CONTAINER ==========-->
+        <div class="container"> 
+          <!-- Begin .nav navbar-nav -->
+          <ul class="nav navbar-nav">
+            <li class=" {% if page_name == 'index' %} active  {% endif %} "><a href="{% url "frontend:index" %}">সর্বশেষ</a></li>
+            <li class=" {% if page_name == 'world_news' %} active  {% endif %} " ><a href="{% url "frontend:world_news" %}">বিশ্ব</a> </li>
+            <li class=" {% if page_name == 'politics_news' %} active  {% endif %} " ><a href="{% url "frontend:politics_news" %}">রাজনীতি</a> </li>
+            <li class=" {% if page_name == 'sports_news' %} active  {% endif %} " ><a href="{% url "frontend:sports_news" %}">খেলা</a></li>
+            <li class=" {% if page_name == 'bangladesh_news' %} active  {% endif %} " ><a href="{% url "frontend:bangladesh_news" %}">বাংলাদেশ</a></li>
+            <li class=" {% if page_name == 'crime_news' %} active  {% endif %} " ><a href="{% url "frontend:crime_news" %}">অপরাধ</a></li>
+            <li class=" {% if page_name == 'entertainment_news' %} active  {% endif %} " ><a href="{% url "frontend:entertainment_news" %}">বিনোদন</a></li>
+            <li class=" {% if page_name == 'business_news' %} active  {% endif %} " ><a href="{% url "frontend:business_news" %}">বাণিজ্য</a></li>
+            <li class=" {% if page_name == 'opinion_news' %} active  {% endif %} " ><a href="{% url "frontend:opinion_news" %}">মতামত</a></li>
+            <li class=" {% if page_name == 'job_news' %} active  {% endif %} " ><a href="{% url "frontend:job_news" %}">চাকরি</a></li>
+            <li class=" {% if page_name == 'lifestyle_news' %} active  {% endif %} " ><a href="{% url "frontend:lifestyle_news" %}">জীবনযাপন</a></li>
+
+          </ul>
+          <!--========== END .NAV NAVBAR-NAV ==========--> 
+        </div>
+        <!--========== END .CONTAINER ==========--> 
+      </div>
+      <!--========== END MAIN-MENU .NAVBAR-COLLAPSE COLLAPSE #FIXED-NAVBAR-TOOGLE ==========--> 
+      <!--========== BEGIN .SECOND-MENU NAVBAR #NAV-BELOW-MAIN ==========-->
+      <div class="second-menu navbar" id="nav-below-main"> 
+        <!-- Begin .container -->
+        <div class="container"> 
+          <!-- Begin .collapse navbar-collapse -->
+          <div class="collapse navbar-collapse nav-below-main"> 
+            <!-- Begin .nav navbar-nav -->
+
+          </div>
+          <!-- End .collapse navbar-collapse --> 
+          <!-- Begin .clock -->
+          <div class="clock">
+            <div id="time"></div>
+            <div id="date"></div>
+          </div>
+          <!-- End .clock --> 
+        </div>
+        <!-- End .container --> 
+      </div>
+      <!--========== END .SECOND-MENU NAVBAR #NAV-BELOW-MAIN ==========--> 
+    </div>
+  </header>

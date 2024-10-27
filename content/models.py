@@ -22,10 +22,8 @@ class Album(BaseModel):
 
 class PhotoGallery(BaseModel):
     title = models.CharField(max_length=255)
-    description = models.TextField(blank=True, null=True)
-    date_created = models.DateTimeField(auto_now_add=True)
     images = models.ImageField(upload_to='photo_galleries/')  # Assuming you want to upload a single cover image
-    album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='photo_galleries')
+    album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='photo_galleries') 
 
     def __str__(self):
         return self.title
@@ -38,8 +36,6 @@ class PhotoGallery(BaseModel):
 
 class VideoGallery(BaseModel):
     title = models.CharField(max_length=255)
-    description = models.TextField(blank=True, null=True)
-    date_created = models.DateTimeField(auto_now_add=True)
     video_url = models.URLField()  # Link to the video (YouTube, Vimeo, etc.)
 
     def __str__(self):
@@ -54,7 +50,8 @@ class VideoGallery(BaseModel):
 class Page(BaseModel):
     name = models.CharField(max_length=50)
     description = models.TextField(blank=True, null=True)
-    slug = models.SlugField(max_length=50, unique=True, blank=True)  # Optional slug field
+    image = models.ImageField(upload_to='pages/', blank=True,  null=True)
+
 
     def __str__(self):
         return self.name
@@ -65,10 +62,6 @@ class Page(BaseModel):
         verbose_name = 'Page'
         verbose_name_plural = 'Pages'
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)  # Automatically generate slug from name
-        super().save(*args, **kwargs)
 
 class Shortcut(BaseModel):
     name = models.CharField(max_length=50)

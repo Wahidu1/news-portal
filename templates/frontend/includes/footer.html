@@ -1,0 +1,73 @@
+{% load static %}
+<footer id="footer"> 
+    <!-- Begin .parallax -->
+    <div id="parallax-section2">
+      <div class="bg parallax2 overlay img-overlay2">
+        <div class="container">
+          <div class="row no-gutter">
+            <div class="col-sm-6 col-md-3">
+              <h3 class="title-left title-style03 underline03">আমাদের সম্পর্কে</h3>
+              <p class="about-us">আমাদের সম্পর্কে" বিভাগটি আপনার সংবাদপত্র বা ওয়েবসাইটের পরিচিতি দেয়ার জন্য অত্যন্ত গুরুত্বপূর্ণ। এটি পাঠকদের কাছে আপনার প্রতিষ্ঠান, উদ্দেশ্য এবং সেবার বিষয়ে স্বচ্ছ ধারণা প্রদান করে।<br>
+                "আমাদের সম্পর্কে" বিভাগ পাঠকদের আপনার লক্ষ্য এবং মূল্যবোধ সম্পর্কে ধারণা দেবে এবং তাদের আপনার সংবাদপত্রের প্রতি আস্থা তৈরি করবে।</p>
+              <div class="site-logo"><a href="index-2.html"><img src="{% static 'frontend/img/logo.png' %}" alt="Side Logo" />
+                <h3>জনপদ <span>সংবাদ</span></h3>
+                <p>সত্যের সন্ধানে, প্রতিদিন</p>
+                </a></div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+              <h3 class="title-left title-style03 underline03">খবর</h3>
+              <div class="footer-post">
+                <ul>
+                  {% for latest_news in latest_news_list|slice:":4" %}
+                  <li>
+                    <div class="item">
+                      <div class="item-image"><a class="img-link" href="deals.html">
+                        {% if latest_news.image %}
+                        <img class="img-responsive img-full" src="{{latest_news.image.url}}" alt=""></a>
+                        {% endif %}
+                      </div>
+                      <div class="item-content">
+                        <p class="ellipsis"><a href="#">{{latest_news.title}}</a></p>
+                      </div>
+                    </div>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+              <h3 class="title-left title-style03 underline03">দেখুন + শুনুন</h3>
+              <div class="footer-post">
+                <ul>
+                  {% for video in video_list %}
+                  <li>
+                    <div class="item">
+                      <div class="item-image">
+                  <iframe src="https://www.youtube.com/embed/{{video.video_id}}" class="video" title="{{video.title}}"></iframe>
+                        
+                      </div>
+                      <div class="item-content">
+                        <p class="ellipsis"><a href="#">{{video.title}}</a></p>
+                      </div>
+                    </div>
+                  </li>
+                  {% endfor %}
+
+
+                </ul>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+              <h3 class="title-left title-style03 underline03">ট্যাগ</h3>
+              <div class="tagcloud">
+                {% for tag in tags %}
+                <a href="#">{{tag.name}}</a>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End .parallax --> 
+  </footer>

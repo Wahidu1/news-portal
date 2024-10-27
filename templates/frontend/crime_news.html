@@ -1,0 +1,253 @@
+{% extends "frontend/base.html" %}
+{% load static %}
+{% load number_filters %}
+{% block mainblock %}
+<section id="main-section"> 
+
+    <!--========== BEGIN .MODULE ==========-->
+    <section class="module highlight">
+      <div class="container">
+        <div class="row no-gutter"> 
+          <!--========== BEGIN .BREAKING-NEWS ==========--> 
+
+          <!--========== END .BREAKING-NEWS ==========--> 
+        <!--========== BEGIN #NEWS-SLIDER ==========-->
+        <div id="news-slider" class="owl-carousel">
+          <div class="news-slide">
+            
+            <div class="news-slider-layer first"> <a href="{% url "frontend:news_details" latest_news_list.0.slug %}">
+              <div class="content"> 
+                
+                {% for category in latest_news_list.0.category.all %}
+                <span class="category-tag bg-1">{{category}}</span>
+                    
+                {% endfor %}
+
+                <p>{{latest_news_list.0.title}}</p>
+              </div>
+              {% if latest_news_list.0.image %}
+              <img src="{{latest_news_list.0.image.url}}" alt=""> 
+              {% else %}
+              <img src="{% static "frontend/img/alt.jpg" %}" alt=""> 
+              {% endif %}
+            </a> 
+            </div>
+            <div class="news-slider-layer second"> <a href="{% url "frontend:news_details" latest_news_list.1.slug %}" >
+              <div class="content"> 
+                {% for category in latest_news_list.1.category.all %}
+                <span class="category-tag bg-1">{{category}}</span>
+                {% endfor %}
+                <p>{{latest_news_list.1.title}}</p>
+              </div>
+              {% if latest_news_list.1.image %}
+              <img src="{{latest_news_list.1.image.url}}" alt=""> 
+              {% else %}
+              <img src="{% static "frontend/img/alt.jpg" %}" alt=""> 
+              {% endif %}
+            </a> </div>
+            <div class="news-slider-layer third"> <a href="{% url "frontend:news_details" latest_news_list.2.slug %}" >
+              <div class="content"> 
+                
+                {% for category in latest_news_list.2.category.all %}
+                <span class="category-tag bg-1">{{category}}</span>
+                {% endfor %}
+                <p>{{latest_news_list.2.title}}</p>
+              </div>
+              {% if latest_news_list.2.image %}
+              <img src="{{latest_news_list.2.image.url}}" alt=""> 
+              {% else %}
+              <img src="{% static "frontend/img/alt.jpg" %}" alt=""> 
+              {% endif %}
+            </a> </div>
+            <div class="news-slider-layer fourth"> <a href="{% url "frontend:news_details" latest_news_list.3.slug %}" >
+                <div class="content"> 
+                
+                    {% for category in latest_news_list.3.category.all %}
+                    <span class="category-tag bg-1">{{category}}</span>
+                    {% endfor %}
+                    <p>{{latest_news_list.3.title}}</p>
+                  </div>
+                  {% if latest_news_list.3.image %}
+                  <img src="{{latest_news_list.3.image.url}}" alt=""> 
+                  {% else %}
+                  <img src="{% static "frontend/img/alt.jpg" %}" alt=""> 
+                  {% endif %}
+                </a> </div>
+          </div>
+          <div class="news-slide">
+            <div class="news-slider-layer first"> <a href="{% url "frontend:news_details" latest_news_list.4.slug %}" >
+                <div class="content"> 
+                
+                    {% for category in latest_news_list.4.category.all %}
+                    <span class="category-tag bg-1">{{category}}</span>
+                    {% endfor %}
+                    <p>{{latest_news_list.4.title}}</p>
+                  </div>
+                  {% if latest_news_list.4.image %}
+                  <img src="{{latest_news_list.4.image.url}}" alt=""> 
+                  {% else %}
+                  <img src="{% static "frontend/img/alt.jpg" %}" alt=""> 
+                  {% endif %}
+                </a> </div>
+            <div class="news-slider-layer second"> <a href="{% url "frontend:news_details" latest_news_list.5.slug %}" >
+                <div class="content"> 
+                
+                    {% for category in latest_news_list.5.category.all %}
+                    <span class="category-tag bg-1">{{category}}</span>
+                    {% endfor %}
+                    <p>{{latest_news_list.5.title}}</p>
+                  </div>
+                  {% if latest_news_list.5.image %}
+                  <img src="{{latest_news_list.5.image.url}}" alt=""> 
+                  {% else %}
+                  <img src="{% static "frontend/img/alt.jpg" %}" alt=""> 
+                  {% endif %}
+                </a> </div>
+            <div class="news-slider-layer third"> <a href="{% url "frontend:news_details" latest_news_list.6.slug %}" >
+                <div class="content"> 
+                
+                    {% for category in latest_news_list.6.category.all %}
+                    <span class="category-tag bg-1">{{category}}</span>
+                    {% endfor %}
+                    <p>{{latest_news_list.6.title}}</p>
+                  </div>
+                  {% if latest_news_list.6.image %}
+                  <img src="{{latest_news_list.6.image.url}}" alt=""> 
+                  {% else %}
+                  <img src="{% static "frontend/img/alt.jpg" %}" alt=""> 
+                  {% endif %}
+                </a> </div>
+            <div class="news-slider-layer fourth"> <a href="{% url "frontend:news_details" latest_news_list.7.slug %}" >
+                <div class="content"> 
+                
+                    {% for category in latest_news_list.7.category.all %}
+                    <span class="category-tag bg-1">{{category}}</span>
+                    {% endfor %}
+                    <p>{{latest_news_list.7.title}}</p>
+                  </div>
+                  {% if latest_news_list.7.image %}
+                  <img src="{{latest_news_list.7.image.url}}" alt=""> 
+                  {% else %}
+                  <img src="{% static "frontend/img/alt.jpg" %}" alt=""> 
+                  {% endif %}
+                </a> </div>
+          </div>
+
+        </div>
+        <!--========== END .NEWS-SLIDER ==========--> 
+        </div>
+      </div>
+    </section>
+    <!--========== END .MODULE ==========--> 
+    <!--========== BEGIN .MODULE ==========-->
+    <section class="module">
+      <div class="container">
+        <div class="row no-gutter"> 
+          <!--========== BEGIN .COL-MD-8 ==========-->
+          <div class="col-md-8"> 
+            <!--========== BEGIN .NEWS ==========-->
+            <div class="news">
+              <div class="module-title">
+                <h3 class="title"><span class="bg-1">অপরাধ</span></h3>
+                <h3 class="subtitle">অন্ধকারের গল্প, ন্যায়ের সন্ধান</h3>
+              </div>
+              {% for crime_news in crime_news_list|slice:":3" %}
+              <!-- Begin .item -->
+              <div class="item">
+                <div class="item-image-3"><a class="img-link" href="{% url "frontend:news_details" crime_news.slug %}">
+                  {% if crime_news.image %}
+                  <img class="img-responsive img-full" src="{{crime_news.image.url}}" alt="">
+                  {% endif %}
+                </a></div>
+                <div class="item-content">
+                  <div class="title-left title-style04 underline04">
+                    <h3><a href="{% url "frontend:news_details" crime_news.slug %}">{{crime_news.title}}</a></h3>
+                  </div>
+                  <br>
+                  <div class="post-meta-elements">
+                    <div class="post-meta-date"> <i class="fa fa-calendar"></i>{{crime_news.date_published}} </div>
+                  </div>
+                  <p><a href="{% url "frontend:news_details" crime_news.slug %}" class="external-link">{{crime_news.content|truncatechars:120}}</a></p>
+                  
+                </div>
+              </div>
+              <!-- End .item --> 
+              {% endfor %}
+            </div>
+            <!--========== END .NEWS ==========--> 
+          </div>
+          <!--========== END .COL-MD-8 =========--> 
+          <!--========== BEGIN .COL-MD-4 ==========-->
+          <div class="col-md-4"> 
+            <!-- Begin .title-style02 -->
+            <div class="title-style02">
+              <h3>সর্বাধিক পঠিত সংবাদ</h3>
+            </div>
+            <!-- End .title-style02 --> 
+            <!--========== BEGIN .SIDEBAR-POST ==========-->
+            <div class="sidebar-post">
+              <ul>
+                {% for popular_news in popular_news_list %}
+                <li>
+                  <div class="item">
+                    <div class="item-image"><a class="img-link" href="{% url "frontend:news_details" popular_news.slug %}">
+                      {% if popular_news.image %}
+                      <img class="img-responsive img-full" src="{{popular_news.image.url}}" alt="">
+                      {% endif %}
+                    </a></div>
+                    <div class="item-content">
+                      <h3>{{forloop.counter|convert_to_bangla}}</h3>
+                      <p><a href="{% url "frontend:news_details" popular_news.slug %}">{{popular_news.title}}</a></p>
+                    </div>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <!--========== END .SIDEBAR-POST ==========--> 
+          </div>
+          <!--========== END .COL-MD-4 ==========--> 
+        </div>
+
+      </div>
+    </section>
+    <!--========== END .MODULE ==========--> 
+    <!--========== BEGIN .MODULE ==========-->
+    <section class="module highlight">
+      <div class="container">
+        <div class="row no-gutter"> 
+          <!--========== BEGIN .COL-MD-8 ==========-->
+          <div class="col-md-12">
+            <div class="module-title">
+              <h3 class="title"><span class="bg-12">অপরাধ সংবাদ</span></h3>
+              <h3 class="subtitle">জনপদ সংবাদ</h3>
+            </div>
+            <!--========== BEGIN .ARTICLE ==========-->
+            {% for crime_news in crime_news_list|slice:"3:" %}
+            <div class="article">
+              <div class="entry-block-small">
+                <div class="entry-image"><a class="img-link" href="{% url "frontend:news_details" crime_news.slug %}">
+                  {% if crime_news.image %}
+                  <img class="img-responsive img-full" src="{{crime_news.image.url}}" alt=""></a>
+                  {% endif %}
+                </div>
+                <div class="entry-content"><span class="day">{{crime_news.date_published}}</span>
+                  <p><a href="{% url "frontend:news_details" crime_news.slug %}" class="external-link"> {{crime_news.title}} </a></p>
+                </div>
+              </div>
+
+            </div>
+            <!--========== END .ARTICLE ==========--> 
+            {% endfor %}
+
+          </div>
+          <!--========== END COL-MD-8 ==========--> 
+        </div>
+      </div>
+    </section>
+    <!--========== END .MODULE ==========--> 
+    
+    <!--========== END .MODULE ==========--> 
+  </section>
+
+{% endblock mainblock %}

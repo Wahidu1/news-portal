@@ -1,0 +1,46 @@
+{% extends "frontend/base.html" %}
+{% load static %}
+{% block mainblock %}
+  <!--========== BEGIN #MAIN-SECTION ==========-->
+  <div id="main-section"> 
+        <!--========== BEGIN .MODULE ==========-->
+        <section class="module">
+            <div class="container">
+              <div class="row no-gutter"> 
+                <!--========== BEGIN .COL-MD-8 ==========-->
+                <div class="col-md-12">
+                  <div class="container">
+                    <div class="module-title">
+                      <h3 class="title"><span class="bg-4">{{tag}}</span></h3>
+                      <h3 class="subtitle">জনপদ সংবাদ</h3>
+                    </div>
+                    <!--========== BEGIN .ARTICLE ==========-->
+                    <div class="article">
+                    {% for news in news_list %}
+                      <div class="entry-block-small">
+                        <div class="entry-image"><a class="img-link" href="{% url "frontend:news_details" news.slug %}">
+                            {% if news.image %}
+                            <img class="img-responsive img-full" src="{{news.image.url}}" alt="">
+                            {% endif %}
+                        </a>
+                        </div>
+                        <div class="entry-content">
+                          <h4><a href="{% url "frontend:news_details" news.slug %}"> <span class="day">Dec 14, 2016</span></a></h4>
+                          <p><a href="{% url "frontend:news_details" news.slug %}"  > {{news.title}} </p>
+                          <p><a href="{% url "frontend:news_details" news.slug %}"  >{{news.content|truncatechars:120}}</a></p>
+                        </div>
+                      </div>
+                    {% endfor %}
+                    </div>
+                    <!--========== BEGIN .ARTICLE ==========--> 
+                  </div>
+                </div>
+                <!--========== END .COL-MD-8 ==========--> 
+
+              </div>
+            </div>
+          </section>
+          <!--========== END .MODULE ==========--> 
+</div>
+  <!--========== END #MAIN-SECTION ==========--> 
+{% endblock mainblock %}
