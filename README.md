@@ -30,3 +30,56 @@ Welcome to **জনপদ সংবাদ**, a Django-based news portal designed
    ```bash
    git clone https://github.com/Wahidu1/news-portal.git
    cd news-portal
+   ```
+
+2. **Create a virtual environment**:
+   ```bash
+   python -m venv env
+   source env/bin/activate  # On Windows use `env\Scripts\activate`
+   ```
+
+3. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Run migrations**:
+   ```bash
+   python manage.py migrate
+   ```
+
+5. **Create a superuser**:
+   ```bash
+   python manage.py createsuperuser
+   ```
+
+6. **Run the development server**:
+   ```bash
+   python manage.py runserver
+   ```
+
+7. **Access the application**:
+   - Go to `http://127.0.0.1:8000/` to view the news portal.
+   - For admin access, go to `http://127.0.0.1:8000/admin/`.
+
+## Usage
+
+- **Admin Dashboard**: Manage categories, articles, comments, and tags.
+- **Author Management**: Add and edit authors, view their profiles, and manage their articles.
+- **Commenting**: Allows readers to comment on articles, providing valuable feedback.
+
+## Project Structure
+
+```plaintext
+news-portal/
+├── newsportal/             # Django app containing models, views, and templates
+├── static/                 # Static files (CSS, JavaScript, images)
+├── templates/              # HTML templates for rendering views
+├── manage.py               # Django management script
+├── requirements.txt        # Python package requirements
+└── README.md               # Project README
+```
+
+## License
+
+This project is open source and available under the.
